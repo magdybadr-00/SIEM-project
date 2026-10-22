@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#06090e">
+    <title>Blocked IPs | SafeCyber</title>
+    <link rel="stylesheet" href="CSS/style.css">
+</head>
+<body data-access="admin">
+    <div class="app-shell">
+        <div class="mobile-scrim"></div>
+        <aside class="sidebar">
+            <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M2.5 12s3.2-6 9.5-6 9.5 6 9.5 6-3.2 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3.2"/><circle class="brand-eye-pupil" cx="12" cy="12" r="1.15"/><path class="brand-eye-scan" d="M15.2 15.2 18 18"/></svg></span><span><span class="brand-name">SafeCyber</span><span class="brand-caption">Security operations</span></span></a>
+            <div class="nav-label">Workspace</div>
+            <nav class="side-nav" aria-label="Main navigation">
+                <a href="index.html"><span class="nav-icon">▦</span>Overview</a>
+                <a href="logs.html"><span class="nav-icon">◷</span>Authentication logs</a>
+                <a href="alerts.html"><span class="nav-icon">⚠</span>Security alerts</a>
+                <a class="active" href="blocked-ips.html"><span class="nav-icon">⊘</span>Blocked IPs</a>
+            </nav>
+            <div class="sidebar-bottom"><div class="sidebar-note"><div class="sidebar-note-title">System status</div><p>All monitoring services are operational.</p></div><a class="logout-link" href="login.html"><span class="nav-icon">↪</span>Sign out</a></div>
+        </aside>
+        <main class="main-area">
+            <header class="topbar"><div class="topbar-left"><button class="mobile-menu" aria-label="Open navigation" aria-expanded="false">☰</button><span class="topbar-kicker">Security operations / Blocked IPs</span></div><div class="topbar-right"><span class="engine-status"><span class="status-dot"></span>Monitoring active</span><div class="account"><span class="avatar" data-account-initial>A</span><span class="account-copy"><span class="account-name" data-account-name>Admin</span><span class="account-role">Administrator</span></span></div></div></header>
+            <div class="page-content">
+                <section class="page-heading"><div><div class="eyebrow">Network controls</div><h1>Blocked IP addresses</h1><p>Manage sources currently prevented from accessing your environment.</p></div><button type="button" class="button button-primary" data-open-modal><span aria-hidden="true">＋</span> Block an IP</button></section>
+                <section class="metrics-grid" aria-label="Blocked IP summary">
+                    <article class="metric-card"><div class="metric-top"><span>Blocked addresses</span><span class="metric-icon green">⊘</span></div><div class="metric-value" id="blocked-count">1</div><div class="metric-meta">Currently on the block list</div></article>
+                    <article class="metric-card"><div class="metric-top"><span>Automated blocks</span><span class="metric-icon">⚙</span></div><div class="metric-value">1</div><div class="metric-meta">Triggered by security rules</div></article>
+                    <article class="metric-card"><div class="metric-top"><span>Manual blocks</span><span class="metric-icon amber">＋</span></div><div class="metric-value" id="manual-count">0</div><div class="metric-meta">Added by administrators</div></article>
+                    <article class="metric-card"><div class="metric-top"><span>Protected services</span><span class="metric-icon green">✓</span></div><div class="metric-value">4</div><div class="metric-meta">Applying block list rules</div></article>
+                </section>
+                <section class="panel table-panel">
+                    <div class="panel-heading"><div><h2>Active block list</h2><div class="panel-subtitle">Manually added entries are for this demo session only</div></div><label class="search-box"><span aria-hidden="true">⌕</span><input type="search" placeholder="Search IP or reason" aria-label="Search blocked IPs" data-search-input="#blocked-ip-table" data-empty-state="#blocked-empty"></label></div>
+                    <div class="table-wrap"><table id="blocked-ip-table"><thead><tr><th>IP address</th><th>Reason</th><th>Blocked at</th><th>Added by</th><th>Type</th><th>Action</th></tr></thead><tbody>
+                        <tr data-searchable><td class="table-primary mono">192.168.1.105</td><td>Automated brute force trigger</td><td>Oct 19, 2026 · 14:23</td><td>Auto-engine</td><td><span class="badge badge-blue">Automatic</span></td><td><button type="button" class="table-action" data-unblock="192.168.1.105">Unblock</button></td></tr>
+                    </tbody></table><div id="blocked-empty" class="empty-row">No blocked addresses match your search.</div></div>
+                </section>
+            </div>
+        </main>
+    </div>
+    <div id="block-ip-modal" class="modal-backdrop" aria-hidden="true">
+        <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="block-modal-title">
+            <div class="modal-heading"><div><h2 id="block-modal-title">Block an IP address</h2><p>Add a source address to the demo block list.</p></div><button type="button" class="icon-button" data-close-modal aria-label="Close dialog">×</button></div>
+            <form id="block-ip-form">
+                <div class="field"><label for="ip-address">IP address</label><input id="ip-address" name="ip" type="text" inputmode="decimal" placeholder="e.g. 203.0.113.42" autocomplete="off" required></div>
+                <div class="field"><label for="block-reason">Reason</label><textarea id="block-reason" name="reason" placeholder="Why should this address be blocked?" required></textarea></div>
+                <div class="modal-actions"><button type="button" class="button button-secondary" data-close-modal>Cancel</button><button type="submit" class="button button-primary">Add to block list</button></div>
+            </form>
+        </section>
+    </div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="JS/main.js"></script>
+</body>
+</html>
