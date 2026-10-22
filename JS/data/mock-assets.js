@@ -1,0 +1,166 @@
+/**
+ * OBSIDIAN SIEM — Assets & Endpoints Dataset
+ * Enterprise infrastructure assets with criticality tiers, telemetry health, and incident links.
+ */
+window.Obsidian = window.Obsidian || {};
+window.Obsidian.Data = window.Obsidian.Data || {};
+
+(function() {
+    const assets = [
+        {
+            id: "AST-001",
+            hostname: "AUTH-GATEWAY-01",
+            type: "gateway",
+            os: "Ubuntu 24.04 LTS (Kernel 6.8)",
+            ip: "10.0.1.15",
+            mac: "00:1A:2B:3C:4D:15",
+            criticality: "Tier 0 - Mission Critical",
+            status: "active", // active, isolated, degraded
+            risk_score: 75,
+            owner: "Identity & Access Team",
+            department: "IT Infrastructure",
+            open_ports: [22, 80, 443, 636],
+            last_seen: "2 min ago",
+            related_alerts: ["ALT-2026-881"],
+            related_incidents: ["INC-2026-041"],
+            agent_version: "Falcon Sensor 7.14.17804",
+            isolation_enabled: false
+        },
+        {
+            id: "AST-002",
+            hostname: "PROD-DB-01",
+            type: "database",
+            os: "Red Hat Enterprise Linux 9.4",
+            ip: "10.0.4.22",
+            mac: "00:1A:2B:3C:4D:22",
+            criticality: "Tier 0 - Mission Critical",
+            status: "active",
+            risk_score: 82,
+            owner: "Database Administration Lead",
+            department: "Core Engineering",
+            open_ports: [22, 5432, 9100],
+            last_seen: "1 min ago",
+            related_alerts: ["ALT-2026-882"],
+            related_incidents: ["INC-2026-042"],
+            agent_version: "Falcon Sensor 7.14.17804",
+            isolation_enabled: false
+        },
+        {
+            id: "AST-003",
+            hostname: "WORKSTATION-CORP-402",
+            type: "workstation",
+            os: "Windows 11 Enterprise (23H2)",
+            ip: "10.0.2.88",
+            mac: "A4:5E:60:12:34:88",
+            criticality: "Tier 2 - Standard Endpoint",
+            status: "isolated",
+            risk_score: 90,
+            owner: "Sofia Alvarez (s.alvarez)",
+            department: "Data Science & Analytics",
+            open_ports: [135, 445],
+            last_seen: "5 min ago",
+            related_alerts: ["ALT-2026-883"],
+            related_incidents: ["INC-2026-043"],
+            agent_version: "Falcon Sensor 7.14.17804",
+            isolation_enabled: true
+        },
+        {
+            id: "AST-004",
+            hostname: "DC-PRIMARY-01",
+            type: "domain_controller",
+            os: "Windows Server 2022 Datacenter",
+            ip: "10.0.1.10",
+            mac: "00:50:56:A1:B2:10",
+            criticality: "Tier 0 - Mission Critical",
+            status: "active",
+            risk_score: 85,
+            owner: "Directory Services Team",
+            department: "IT Infrastructure",
+            open_ports: [53, 88, 135, 389, 445, 636, 3268],
+            last_seen: "Just now",
+            related_alerts: ["ALT-2026-885"],
+            related_incidents: ["INC-2026-044"],
+            agent_version: "Falcon Sensor 7.14.17804",
+            isolation_enabled: false
+        },
+        {
+            id: "AST-005",
+            hostname: "JUMP-SRV-01",
+            type: "bastion",
+            os: "Windows Server 2022 Standard",
+            ip: "10.0.1.5",
+            mac: "00:50:56:A1:B2:05",
+            criticality: "Tier 1 - Privileged Access",
+            status: "isolated",
+            risk_score: 92,
+            owner: "Security Architecture",
+            department: "InfoSec Operations",
+            open_ports: [3389, 443],
+            last_seen: "12 min ago",
+            related_alerts: ["ALT-2026-884", "ALT-2026-885"],
+            related_incidents: ["INC-2026-044"],
+            agent_version: "Falcon Sensor 7.14.17804",
+            isolation_enabled: true
+        },
+        {
+            id: "AST-006",
+            hostname: "LAPTOP-CORP-109",
+            type: "workstation",
+            os: "Windows 11 Enterprise (23H2)",
+            ip: "10.0.2.14",
+            mac: "B8:27:EB:98:76:14",
+            criticality: "Tier 2 - Standard Endpoint",
+            status: "isolated",
+            risk_score: 94,
+            owner: "David Ross (d.ross)",
+            department: "Infrastructure & Directory Services",
+            open_ports: [135, 445],
+            last_seen: "18 min ago",
+            related_alerts: ["ALT-2026-884"],
+            related_incidents: ["INC-2026-044"],
+            agent_version: "Falcon Sensor 7.14.17804",
+            isolation_enabled: true
+        },
+        {
+            id: "AST-007",
+            hostname: "PROD-WEB-01",
+            type: "web_server",
+            os: "Ubuntu 22.04 LTS",
+            ip: "10.0.3.10",
+            mac: "00:1A:2B:3C:4D:10",
+            criticality: "Tier 1 - Business Operational",
+            status: "degraded",
+            risk_score: 68,
+            owner: "Web Platform Engineering",
+            department: "E-Commerce",
+            open_ports: [80, 443, 8080],
+            last_seen: "Just now",
+            related_alerts: ["ALT-2026-886"],
+            related_incidents: [],
+            agent_version: "Falcon Sensor 7.14.17804",
+            isolation_enabled: false
+        },
+        {
+            id: "AST-008",
+            hostname: "EDGE-FW-01",
+            type: "firewall",
+            os: "Palo Alto PAN-OS 11.1.2",
+            ip: "10.0.0.1",
+            mac: "00:0C:29:4F:8E:01",
+            criticality: "Tier 0 - Perimeter Security",
+            status: "active",
+            risk_score: 10,
+            owner: "Perimeter Network Team",
+            department: "Network Operations",
+            open_ports: [443],
+            last_seen: "Just now",
+            related_alerts: [],
+            related_incidents: [],
+            agent_version: "Native Appliance Syslog Agent",
+            isolation_enabled: false
+        }
+    ];
+
+    window.Obsidian.Data.assets = assets;
+})();
+

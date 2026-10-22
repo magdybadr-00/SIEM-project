@@ -2,307 +2,221 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#06090e">
-    <meta name="description" content="SafeCyber security operations dashboard demo.">
-    <title>SafeCyber | Security Operations</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#090909">
+    <meta name="description" content="OBSIDIAN SIEM — Enterprise Security Operations Platform. Premium Monochrome Glass Design.">
+    <title>OBSIDIAN SIEM | Enterprise Security Operations</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body data-access="admin">
     <div class="app-shell">
-        <aside class="sidebar" id="sidebar">
-            <a class="brand" href="#dashboard" data-view-link="dashboard" aria-label="SafeCyber dashboard">
-                <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M2.5 12s3.2-6 9.5-6 9.5 6 9.5 6-3.2 6-9.5 6-9.5-6-9.5-6Z"/><circle cx="12" cy="12" r="3.2"/><circle class="brand-eye-pupil" cx="12" cy="12" r="1.15"/><path class="brand-eye-scan" d="M15.2 15.2 18 18"/></svg></span>
-                <span class="brand-name">Safe<span>Cyber</span><small>SECURITY OPERATIONS</small></span>
+        <!-- Collapsible Navigation Sidebar -->
+        <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+            <a class="brand" href="#overview" data-view-link="overview" aria-label="Obsidian SIEM Overview">
+                <span class="brand-mark" aria-hidden="true">◆</span>
+                <span class="brand-name">OBSIDIAN<span>SIEM</span></span>
             </a>
 
             <p class="nav-heading">WORKSPACE</p>
-            <nav class="primary-nav" aria-label="Primary navigation">
-                <a class="nav-link active" href="#dashboard" data-view-link="dashboard">
-                    <span class="nav-icon" aria-hidden="true">◫</span><span>Dashboard</span>
+            <nav class="primary-nav" aria-label="Security Operations">
+                <a class="nav-link active" href="#overview" data-view-link="overview">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="7" height="9" x="3" y="3" rx="1"/><rect width="7" height="5" x="14" y="3" rx="1"/><rect width="7" height="9" x="14" y="12" rx="1"/><rect width="7" height="5" x="3" y="16" rx="1"/></svg>
+                    </span>
+                    <span>Overview</span>
                 </a>
-                <a class="nav-link" href="#vulnerabilities" data-view-link="vulnerabilities">
-                    <span class="nav-icon" aria-hidden="true">⌁</span><span>Vulnerabilities</span><span class="nav-count">8</span>
+                <a class="nav-link" href="#alerts" data-view-link="alerts">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                    </span>
+                    <span>Alerts</span>
+                    <span class="nav-count nav-count-hot" id="badge-count-alerts">5</span>
                 </a>
                 <a class="nav-link" href="#incidents" data-view-link="incidents">
-                    <span class="nav-icon" aria-hidden="true">◉</span><span>Incidents</span><span class="nav-count nav-count-hot">3</span>
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/></svg>
+                    </span>
+                    <span>Incidents</span>
+                    <span class="nav-count" id="badge-count-incidents">3</span>
                 </a>
-                <a class="nav-link" href="#authentication-logs" data-view-link="authentication-logs">
-                    <span class="nav-icon" aria-hidden="true">◷</span><span>Authentication logs</span>
+                <a class="nav-link" href="#log-explorer" data-view-link="log-explorer">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/><path d="M11 8v6"/><path d="M8 11h6"/></svg>
+                    </span>
+                    <span>Log Explorer</span>
                 </a>
-                <a class="nav-link" href="#security-alerts" data-view-link="security-alerts">
-                    <span class="nav-icon" aria-hidden="true">⚠</span><span>Security alerts</span>
+                <a class="nav-link" href="#threat-hunting" data-view-link="threat-hunting">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m4.93 19.07 4.24-4.24"/></svg>
+                    </span>
+                    <span>Threat Hunting</span>
                 </a>
-                <a class="nav-link" href="#blocked-ips" data-view-link="blocked-ips">
-                    <span class="nav-icon" aria-hidden="true">⊘</span><span>Blocked IPs</span>
+                <a class="nav-link" href="#detection-rules" data-view-link="detection-rules">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>
+                    </span>
+                    <span>Detection Rules</span>
+                    <span class="nav-count" id="badge-count-rules">12</span>
                 </a>
-                <a class="nav-link" href="#operator-profile" data-view-link="operator-profile">
-                    <span class="nav-icon" aria-hidden="true">◎</span><span>Operator profile</span>
+                <a class="nav-link" href="#users-identity" data-view-link="users-identity">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </span>
+                    <span>Users &amp; Identity</span>
                 </a>
-                <a class="nav-link" href="#compliance" data-view-link="compliance">
-                    <span class="nav-icon" aria-hidden="true">▤</span><span>Compliance</span>
+                <a class="nav-link" href="#assets-endpoints" data-view-link="assets-endpoints">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="20" height="8" x="2" y="2" rx="2" ry="2"/><rect width="20" height="8" x="2" y="14" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
+                    </span>
+                    <span>Assets &amp; Endpoints</span>
+                </a>
+                <a class="nav-link" href="#threat-intel" data-view-link="threat-intel">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M2 12h20"/><path d="M20 12v8H4v-8"/><path d="m4 4 8 8 8-8"/></svg>
+                    </span>
+                    <span>Threat Intel</span>
+                </a>
+                <a class="nav-link" href="#mitre-attack" data-view-link="mitre-attack">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M3 15h18"/><path d="M9 3v18"/><path d="M15 3v18"/></svg>
+                    </span>
+                    <span>MITRE ATT&amp;CK</span>
                 </a>
             </nav>
 
-            <p class="nav-heading nav-heading-lower">PREFERENCES</p>
-            <nav class="primary-nav" aria-label="Preferences">
-                <a class="nav-link" href="#settings" data-view-link="settings">
-                    <span class="nav-icon" aria-hidden="true">⚙</span><span>Settings</span>
+            <p class="nav-heading" style="margin-top:16px;">MANAGEMENT &amp; AUDIT</p>
+            <nav class="primary-nav" aria-label="Management">
+                <a class="nav-link" href="#reports-analytics" data-view-link="reports-analytics">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                    </span>
+                    <span>Reports &amp; Analytics</span>
+                </a>
+                <a class="nav-link" href="#data-sources" data-view-link="data-sources">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+                    </span>
+                    <span>Data Sources</span>
+                </a>
+                <a class="nav-link" href="#audit-logs" data-view-link="audit-logs">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                    </span>
+                    <span>Audit Logs</span>
+                </a>
+                <a class="nav-link" href="#administration" data-view-link="administration">
+                    <span class="nav-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" width="16" height="16"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                    </span>
+                    <span>Administration</span>
                 </a>
             </nav>
 
             <div class="sidebar-bottom">
-                <div class="sidebar-status">
-                    <span class="status-orbit" aria-hidden="true"><span></span></span>
-                    <div><strong>Demo environment</strong><small>UTC time: <time data-live-clock>2026-10-20 00:00:00</time></small></div>
-                    <span class="live-dot" aria-label="Live"></span>
-                </div>
-                <a class="profile-card logout-link" href="login.html">
-                    <span class="avatar" data-account-initial>A</span>
-                    <span class="profile-copy"><strong data-account-name>Admin</strong><small>Administrator · Sign out</small></span>
-                    <span class="profile-menu" aria-hidden="true">↪</span>
+                <button type="button" class="sidebar-collapse-btn" id="sidebar-collapse-toggle" aria-label="Toggle sidebar width">
+                    <span>⇤</span><span>Collapse Sidebar</span>
+                </button>
+                <a class="nav-link logout-link" href="login.html" title="Sign out of Obsidian">
+                    <span class="nav-icon">↪</span><span>Sign out</span>
                 </a>
             </div>
         </aside>
 
+        <!-- Mobile Backing Scrim -->
         <div class="mobile-scrim" id="mobile-scrim"></div>
+
+        <!-- Main Display Canvas -->
         <main class="main-area">
             <header class="topbar">
                 <div class="topbar-leading">
-                    <button class="mobile-menu" id="mobile-menu" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
-                    <div class="breadcrumbs"><span>Workspace</span><span class="crumb-separator">/</span><strong id="view-breadcrumb">Dashboard</strong></div>
+                    <button class="mobile-menu" id="mobile-menu" type="button" aria-label="Open mobile navigation">☰</button>
+                    <div class="breadcrumbs">
+                        <span>Workspace</span>
+                        <span class="crumb-separator">/</span>
+                        <strong id="view-breadcrumb">Security Overview</strong>
+                    </div>
                 </div>
+
                 <div class="topbar-actions">
-                    <label class="global-search">
-                        <span aria-hidden="true">⌕</span>
-                        <input id="global-search" type="search" placeholder="Search anything..." aria-label="Search threats and events">
+                    <!-- Global Search trigger with ⌘K -->
+                    <button type="button" class="global-search-trigger" id="global-search-trigger" aria-label="Open Command Palette">
+                        <span>⌕</span>
+                        <span>Search entities, alerts, IPs...</span>
                         <kbd>⌘ K</kbd>
-                    </label>
-                    <span class="secure-pill"><span class="live-dot"></span><span>Demo mode · local data</span></span>
-                    <button class="icon-button notification-button" type="button" aria-label="Notifications">
-                        ♧<span class="notification-dot"></span>
                     </button>
-                    <div class="topbar-avatar" data-account-initial aria-label="Signed-in user">A</div>
+
+                    <!-- Time Range Filter -->
+                    <div class="time-range-select-wrap">
+                        <select id="global-time-range" aria-label="Select global telemetry time range"></select>
+                    </div>
+
+                    <!-- Role Badge / Switcher -->
+                    <button type="button" class="role-pill" id="header-role-pill" title="Click to view or switch active RBAC role">
+                        <span class="live-dot"></span>
+                        <span data-account-role>Administrator</span>
+                    </button>
+
+                    <!-- User Profile Avatar -->
+                    <div class="avatar" data-account-initial title="Signed in as Alex Vance">A</div>
                 </div>
             </header>
 
             <div class="content-wrap">
-                <section class="view-panel active" id="view-dashboard" data-view="dashboard">
-                    <div class="page-heading">
-                        <div>
-                            <div class="eyebrow"><span class="eyebrow-mark"></span> <time data-live-clock>2026-10-20 00:00:00</time> UTC <span class="eyebrow-divider">/</span> LIVE OVERVIEW</div>
-                            <h1>Security <span>at a glance.</span></h1>
-                            <p class="page-description">A clear view of your security posture and what needs attention.</p>
-                        </div>
-                        <button class="button button-quiet" id="refresh-button" type="button"><span aria-hidden="true">↻</span> Refresh data</button>
-                    </div>
-
-                    <section class="kpi-grid" aria-label="Security summary">
-                        <article class="kpi-card kpi-threats">
-                            <div class="kpi-top"><span class="kpi-label">Active threats</span><span class="kpi-icon icon-orange">⌁</span></div>
-                            <div class="kpi-value-row"><strong class="kpi-value" id="active-threats">12</strong><span class="delta delta-up">↑ <span id="threat-change">2</span> today</span></div>
-                            <div class="sparkline sparkline-orange" aria-label="Threat activity trending upward"><svg viewBox="0 0 180 38" role="img" aria-hidden="true"><path class="spark-fill" d="M0 30 L18 25 L35 28 L54 14 L72 21 L90 17 L109 23 L127 8 L145 15 L163 5 L180 10 L180 38 L0 38 Z"></path><path class="spark-line" d="M0 30 L18 25 L35 28 L54 14 L72 21 L90 17 L109 23 L127 8 L145 15 L163 5 L180 10"></path></svg><span>LIVE</span></div>
-                        </article>
-                        <article class="kpi-card">
-                            <div class="kpi-top"><span class="kpi-label">Vulnerabilities patched</span><span class="kpi-icon icon-blue">✓</span></div>
-                            <div class="kpi-value-row"><strong class="kpi-value">248</strong><span class="delta delta-good">↑ 12.4%</span></div>
-                            <div class="kpi-foot"><span class="progress-track"><span class="progress-blue" style="width:72%"></span></span><span>72% this quarter</span></div>
-                        </article>
-                        <article class="kpi-card">
-                            <div class="kpi-top"><span class="kpi-label">Compliance score</span><span class="kpi-icon icon-green">◈</span></div>
-                            <div class="kpi-value-row"><strong class="kpi-value">94<span class="value-suffix">%</span></strong><span class="delta delta-good">↑ 3.2%</span></div>
-                            <div class="kpi-foot"><span class="progress-track"><span class="progress-green" style="width:94%"></span></span><span>Strong posture</span></div>
-                        </article>
-                        <article class="kpi-card">
-                            <div class="kpi-top"><span class="kpi-label">System health</span><span class="kpi-icon icon-green">⌁</span></div>
-                            <div class="kpi-value-row"><strong class="kpi-value">99.8<span class="value-suffix">%</span></strong><span class="health-indicator"><span class="live-dot"></span>Optimal</span></div>
-                            <div class="kpi-foot health-foot"><span>Across all monitored endpoints</span></div>
-                        </article>
-                    </section>
-
-                    <section class="dashboard-grid">
-                        <article class="panel threats-panel" id="threats-panel">
-                            <div class="panel-heading">
-                                <div><div class="panel-title-row"><span class="section-mark"></span><h2>Security &amp; vulnerability tracking</h2></div><p>Prioritize, investigate, and resolve security findings.</p></div>
-                                <button class="icon-button panel-menu" type="button" aria-label="More threat table options">···</button>
-                            </div>
-                            <div class="threat-toolbar">
-                                <div class="filter-tabs" role="tablist" aria-label="Filter threats">
-                                    <button class="filter-tab active" type="button" role="tab" aria-selected="true" data-filter="all">All threats <span class="tab-count" id="all-count">6</span></button>
-                                    <button class="filter-tab" type="button" role="tab" aria-selected="false" data-filter="open">Open <span class="tab-count" id="open-count">4</span></button>
-                                    <button class="filter-tab" type="button" role="tab" aria-selected="false" data-filter="resolved">Resolved <span class="tab-count" id="resolved-count">2</span></button>
-                                </div>
-                                <button class="filter-icon" id="severity-filter" type="button" aria-label="Show critical and high severity threats">☷ <span>Priority</span></button>
-                            </div>
-                            <div class="table-scroll">
-                                <table class="threat-table">
-                                    <thead><tr><th scope="col">THREAT / VULNERABILITY</th><th scope="col">ASSET</th><th scope="col">SEVERITY</th><th scope="col">STATUS</th><th scope="col">DETECTED</th><th scope="col"><span class="sr-only">Action</span></th></tr></thead>
-                                    <tbody id="threat-rows">
-                                        <tr data-status="open" data-severity="critical" data-searchable><td><div class="threat-name"><span class="severity-rail rail-critical"></span><span><strong>Unpatched RCE vulnerability</strong><small>CVE-2026-4102</small></span></div></td><td class="asset-name">PROD-WEB-01</td><td><span class="severity-badge severity-critical"><i></i>Critical</span></td><td><span class="status-badge status-open">● Open</span></td><td class="time-cell">4 min ago</td><td><button type="button" class="row-action" aria-label="Resolve Unpatched RCE vulnerability" data-resolve-threat>↗</button></td></tr>
-                                        <tr data-status="open" data-severity="high" data-searchable><td><div class="threat-name"><span class="severity-rail rail-high"></span><span><strong>Brute-force login attempt</strong><small>Multiple failed authentication</small></span></div></td><td class="asset-name">AUTH-GATEWAY</td><td><span class="severity-badge severity-high"><i></i>High</span></td><td><span class="status-badge status-open">● Open</span></td><td class="time-cell">18 min ago</td><td><button type="button" class="row-action" aria-label="Resolve Brute-force login attempt" data-resolve-threat>↗</button></td></tr>
-                                        <tr data-status="open" data-severity="medium" data-searchable><td><div class="threat-name"><span class="severity-rail rail-medium"></span><span><strong>Unusual outbound traffic</strong><small>Unrecognized destination on port 8443</small></span></div></td><td class="asset-name">DB-CLUSTER-02</td><td><span class="severity-badge severity-medium"><i></i>Medium</span></td><td><span class="status-badge status-open">● Open</span></td><td class="time-cell">42 min ago</td><td><button type="button" class="row-action" aria-label="Resolve Unusual outbound traffic" data-resolve-threat>↗</button></td></tr>
-                                        <tr data-status="open" data-severity="low" data-searchable><td><div class="threat-name"><span class="severity-rail rail-low"></span><span><strong>Missing security header</strong><small>Content-Security-Policy not set</small></span></div></td><td class="asset-name">STAGING-API</td><td><span class="severity-badge severity-low"><i></i>Low</span></td><td><span class="status-badge status-open">● Open</span></td><td class="time-cell">1 hr ago</td><td><button type="button" class="row-action" aria-label="Resolve Missing security header" data-resolve-threat>↗</button></td></tr>
-                                        <tr data-status="resolved" data-severity="high" data-searchable><td><div class="threat-name"><span class="severity-rail rail-high"></span><span><strong>Exposed SSH service</strong><small>Port 22 reachable from public network</small></span></div></td><td class="asset-name">EDGE-NODE-04</td><td><span class="severity-badge severity-high"><i></i>High</span></td><td><span class="status-badge status-resolved">✓ Resolved</span></td><td class="time-cell">2 hrs ago</td><td><span class="row-dash">—</span></td></tr>
-                                        <tr data-status="resolved" data-severity="medium" data-searchable><td><div class="threat-name"><span class="severity-rail rail-medium"></span><span><strong>Outdated TLS certificate</strong><small>Certificate renewed and verified</small></span></div></td><td class="asset-name">PORTAL-01</td><td><span class="severity-badge severity-medium"><i></i>Medium</span></td><td><span class="status-badge status-resolved">✓ Resolved</span></td><td class="time-cell">5 hrs ago</td><td><span class="row-dash">—</span></td></tr>
-                                    </tbody>
-                                </table>
-                                <div class="empty-state" id="threat-empty" hidden>No threats match this filter.</div>
-                            </div>
-                            <div class="panel-footer"><span>Showing <strong id="visible-threat-count">6</strong> of 6 findings</span><button type="button" class="text-button" data-view-link="vulnerabilities">View all findings <span aria-hidden="true">→</span></button></div>
-                        </article>
-
-                        <article class="panel timeline-panel" id="timeline-panel">
-                            <div class="panel-heading">
-                                <div><div class="panel-title-row"><span class="section-mark section-mark-orange"></span><h2>Incident lifecycle</h2></div><p>Recent events across your environment.</p></div>
-                                <span class="live-label"><span class="live-dot"></span>LIVE</span>
-                            </div>
-                            <div class="timeline" id="timeline" aria-live="polite">
-                                <article class="timeline-event" data-searchable>
-                                    <span class="timeline-marker marker-critical"></span><div class="timeline-body"><div class="event-top"><strong>Critical vulnerability detected</strong><time>09:42:18</time></div><p>Remote code execution risk found on <b>PROD-WEB-01</b>.</p><span class="event-impact impact-critical">CRITICAL IMPACT</span></div>
-                                </article>
-                                <article class="timeline-event" data-searchable>
-                                    <span class="timeline-marker marker-high"></span><div class="timeline-body"><div class="event-top"><strong>Authentication anomaly flagged</strong><time>09:28:04</time></div><p>12 failed sign-in attempts from an untrusted source.</p><span class="event-impact impact-high">HIGH IMPACT</span></div>
-                                </article>
-                                <article class="timeline-event" data-searchable>
-                                    <span class="timeline-marker marker-medium"></span><div class="timeline-body"><div class="event-top"><strong>Endpoint isolation completed</strong><time>09:15:37</time></div><p>Device <b>ENG-LAP-042</b> isolated for review.</p><span class="event-impact impact-medium">MEDIUM IMPACT</span></div>
-                                </article>
-                                <article class="timeline-event" data-searchable>
-                                    <span class="timeline-marker marker-low"></span><div class="timeline-body"><div class="event-top"><strong>Scheduled scan completed</strong><time>08:54:12</time></div><p>Routine scan finished; no new issues found.</p><span class="event-impact impact-low">LOW IMPACT</span></div>
-                                </article>
-                            </div>
-                            <button class="timeline-link" type="button" data-view-link="incidents">View incident history <span aria-hidden="true">→</span></button>
-                        </article>
-                    </section>
-
-                    <section class="panel activity-panel" aria-labelledby="activity-chart-title">
-                        <div class="panel-heading">
-                            <div><div class="panel-title-row"><span class="section-mark section-mark-orange"></span><h2 id="activity-chart-title">Authentication activity</h2></div><p>Illustrative local data · Hover a time interval for event details.</p></div>
-                            <div class="chart-legend"><span><i class="legend-dot"></i>Successful</span><span><i class="legend-dot failed"></i>Failed</span></div>
-                        </div>
-                        <div class="activity-chart" role="group" aria-label="Authentication activity timeline for the last twelve hours">
-                            <div class="chart-tooltip" role="status" aria-live="polite" hidden>
-                                <strong data-tooltip-time></strong>
-                                <span>Timeline bucket <b data-tooltip-bucket></b></span>
-                                <span>Ingestion rate <b data-tooltip-ingestion></b></span>
-                                <span>Successful ingestion <b data-tooltip-success></b></span>
-                                <span>Failed attacks countered <b class="tooltip-failures" data-tooltip-failed></b></span>
-                                <span>System anomalies <b data-tooltip-anomalies></b></span>
-                                <span>MITRE ATT&amp;CK <b data-tooltip-mitre></b></span>
-                            </div>
-                            <div class="chart-groups">
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T08:00:00Z" data-success="138" data-failed="4" data-anomalies="None detected" aria-label="08:00 UTC: 138 successful, 4 failed, no anomalies"><i class="chart-bar" style="height:68%"></i><i class="chart-bar failed" style="height:16%"></i></div>
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T09:00:00Z" data-success="152" data-failed="6" data-anomalies="None detected" aria-label="09:00 UTC: 152 successful, 6 failed, no anomalies"><i class="chart-bar" style="height:74%"></i><i class="chart-bar failed" style="height:21%"></i></div>
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T10:00:00Z" data-success="129" data-failed="3" data-anomalies="None detected" aria-label="10:00 UTC: 129 successful, 3 failed, no anomalies"><i class="chart-bar" style="height:63%"></i><i class="chart-bar failed" style="height:12%"></i></div>
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T11:00:00Z" data-success="171" data-failed="8" data-anomalies="Unusual sign-in location" aria-label="11:00 UTC: 171 successful, 8 failed, unusual sign-in location"><i class="chart-bar" style="height:82%"></i><i class="chart-bar failed" style="height:27%"></i></div>
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T12:00:00Z" data-success="143" data-failed="5" data-anomalies="None detected" aria-label="12:00 UTC: 143 successful, 5 failed, no anomalies"><i class="chart-bar" style="height:70%"></i><i class="chart-bar failed" style="height:18%"></i></div>
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T13:00:00Z" data-success="116" data-failed="12" data-anomalies="Repeated authentication failures" aria-label="13:00 UTC: 116 successful, 12 failed, repeated authentication failures"><i class="chart-bar" style="height:57%"></i><i class="chart-bar failed" style="height:42%"></i></div>
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T14:00:00Z" data-success="164" data-failed="7" data-anomalies="None detected" aria-label="14:00 UTC: 164 successful, 7 failed, no anomalies"><i class="chart-bar" style="height:79%"></i><i class="chart-bar failed" style="height:24%"></i></div>
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T15:00:00Z" data-success="187" data-failed="19" data-anomalies="Brute-force pattern flagged" aria-label="15:00 UTC: 187 successful, 19 failed, brute-force pattern flagged"><i class="chart-bar" style="height:90%"></i><i class="chart-bar failed" style="height:58%"></i></div>
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T16:00:00Z" data-success="155" data-failed="9" data-anomalies="None detected" aria-label="16:00 UTC: 155 successful, 9 failed, no anomalies"><i class="chart-bar" style="height:75%"></i><i class="chart-bar failed" style="height:30%"></i></div>
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T17:00:00Z" data-success="132" data-failed="5" data-anomalies="None detected" aria-label="17:00 UTC: 132 successful, 5 failed, no anomalies"><i class="chart-bar" style="height:64%"></i><i class="chart-bar failed" style="height:18%"></i></div>
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T18:00:00Z" data-success="178" data-failed="11" data-anomalies="Unusual source rate" aria-label="18:00 UTC: 178 successful, 11 failed, unusual source rate"><i class="chart-bar" style="height:86%"></i><i class="chart-bar failed" style="height:37%"></i></div>
-                                <div class="chart-group" tabindex="0" data-time="2026-10-20T19:00:00Z" data-success="147" data-failed="4" data-anomalies="None detected" aria-label="19:00 UTC: 147 successful, 4 failed, no anomalies"><i class="chart-bar" style="height:71%"></i><i class="chart-bar failed" style="height:15%"></i></div>
-                            </div>
-                            <div class="chart-labels"><span>08:00</span><span>10:00</span><span>12:00</span><span>14:00</span><span>16:00</span><span>18:00 UTC</span></div>
-                        </div>
-                    </section>
-
-                    <footer class="page-footer"><span><span class="live-dot"></span> Data refreshes automatically</span><span>SafeCyber Security Intelligence <span class="footer-separator">·</span> Demo environment</span></footer>
-                </section>
-
-                <section class="view-panel secondary-view" id="view-vulnerabilities" data-view="vulnerabilities" hidden>
-                    <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-mark"></span> EXPOSURE MANAGEMENT</div><h1>Vulnerabilities</h1><p class="page-description">Review and prioritize security findings across monitored assets.</p></div></div>
-                    <article class="panel secondary-panel"><div class="panel-heading"><div><div class="panel-title-row"><span class="section-mark"></span><h2>Vulnerability tracking</h2></div><p>Use the Dashboard tabs to filter findings by status.</p></div></div><div class="secondary-content"><div class="secondary-stat"><span>Open findings</span><strong id="secondary-open-count">4</strong></div><div class="secondary-stat"><span>Resolved findings</span><strong id="secondary-resolved-count">2</strong></div><button class="button button-primary" type="button" data-view-link="dashboard">Review all findings <span aria-hidden="true">→</span></button></div></article>
-                </section>
-                <section class="view-panel secondary-view" id="view-incidents" data-view="incidents" hidden>
-                    <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-mark"></span> DETECT · RESPOND · RECOVER</div><h1>Incident lifecycle</h1><p class="page-description">A live chronological view of security events and their impact.</p></div></div>
-                    <article class="panel secondary-panel"><div class="panel-heading"><div><div class="panel-title-row"><span class="section-mark section-mark-orange"></span><h2>Recent security events</h2></div><p>Latest events are reflected on the Dashboard in real time.</p></div><span class="live-label"><span class="live-dot"></span>LIVE</span></div><div class="timeline secondary-timeline" id="secondary-timeline"></div></article>
-                </section>
-                <section class="view-panel secondary-view" id="view-compliance" data-view="compliance" hidden>
-                    <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-mark"></span> GOVERNANCE &amp; ASSURANCE</div><h1>Compliance</h1><p class="page-description">A snapshot of the controls currently mapped to your environment.</p></div></div>
-                    <article class="panel secondary-panel"><div class="panel-heading"><div><div class="panel-title-row"><span class="section-mark"></span><h2>Compliance posture</h2></div><p>Illustrative framework coverage for this demo workspace.</p></div></div><div class="compliance-list"><div class="compliance-row"><span><b class="framework-icon">SOC</b><strong>SOC 2 Type II</strong></span><span class="compliance-progress"><i style="width:96%"></i></span><strong>96%</strong></div><div class="compliance-row"><span><b class="framework-icon">ISO</b><strong>ISO 27001</strong></span><span class="compliance-progress"><i style="width:92%"></i></span><strong>92%</strong></div><div class="compliance-row"><span><b class="framework-icon">NIST</b><strong>NIST CSF</strong></span><span class="compliance-progress"><i style="width:94%"></i></span><strong>94%</strong></div></div></article>
-                </section>
-                <section class="view-panel secondary-view" id="view-settings" data-view="settings" hidden>
-                    <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-mark"></span> WORKSPACE PREFERENCES</div><h1>Settings</h1><p class="page-description">Dashboard preferences for the current demo session.</p></div></div>
-                    <article class="panel secondary-panel"><div class="panel-heading"><div><div class="panel-title-row"><span class="section-mark"></span><h2>Workspace settings</h2></div><p>These controls are local UI preferences and are not saved to a server.</p></div></div><div class="settings-list"><div><span><strong>Live activity simulation</strong><small>Adds demo timeline events every five seconds.</small></span><label class="toggle"><input type="checkbox" id="simulation-toggle" checked><span></span></label></div><div><span><strong>System status indicator</strong><small>Displays the current demo environment health.</small></span><span class="health-indicator"><span class="live-dot"></span>Active</span></div></div></article>
-                </section>
-                <section class="view-panel secondary-view" id="view-authentication-logs" data-view="authentication-logs" hidden>
-                    <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-mark"></span> EVENT MONITORING</div><h1>Authentication logs</h1><p class="page-description">Review successful and failed sign-in activity across your environment.</p></div></div>
-                    <section class="panel table-panel">
-                        <div class="panel-heading"><div><div class="panel-title-row"><span class="section-mark"></span><h2>All login attempts</h2></div><p>Latest recorded authentication events.</p></div><label class="search-box"><span aria-hidden="true">⌕</span><input type="search" placeholder="Search user or IP address" aria-label="Search login attempts" data-search-input="#login-logs" data-empty-state="#log-empty"></label></div>
-                        <div class="table-wrap"><table id="login-logs"><thead><tr><th>Event ID</th><th>Timestamp</th><th>Username</th><th>Source IP</th><th>Source MAC</th><th>Result</th><th>Location</th></tr></thead><tbody>
-                            <tr data-searchable><td class="table-primary">EVT-1005</td><td>Oct 19, 2026 · 15:10:02</td><td>admin</td><td class="mono">192.168.1.105</td><td class="mono">00:1A:2B:3C:4D:5E</td><td><span class="badge badge-danger">Failed</span></td><td>Local network</td></tr>
-                            <tr data-searchable><td class="table-primary">EVT-1004</td><td>Oct 19, 2026 · 15:09:55</td><td>admin</td><td class="mono">192.168.1.105</td><td class="mono">00:1A:2B:3C:4D:5E</td><td><span class="badge badge-danger">Failed</span></td><td>Local network</td></tr>
-                            <tr data-searchable><td class="table-primary">EVT-1003</td><td>Oct 19, 2026 · 14:55:20</td><td>mohamed</td><td class="mono">10.0.0.12</td><td class="mono">A4:5E:60:12:34:56</td><td><span class="badge badge-success">Success</span></td><td>Internal</td></tr>
-                            <tr data-searchable><td class="table-primary">EVT-1002</td><td>Oct 19, 2026 · 14:20:11</td><td>analyst_user</td><td class="mono">10.0.0.15</td><td class="mono">B8:27:EB:98:76:54</td><td><span class="badge badge-success">Success</span></td><td>Internal</td></tr>
-                            <tr data-searchable><td class="table-primary">EVT-1001</td><td>Oct 19, 2026 · 13:48:37</td><td>user_john</td><td class="mono">45.33.21.90</td><td class="mono">00:25:96:FF:FE:12</td><td><span class="badge badge-warning">MFA required</span></td><td>External</td></tr>
-                        </tbody></table><div id="log-empty" class="empty-row">No login attempts match your search.</div></div>
-                    </section>
-                    <div class="table-muted">Demo data · Events are illustrative and are not connected to a live authentication service.</div>
-                </section>
-                <section class="view-panel secondary-view" id="view-security-alerts" data-view="security-alerts" hidden>
-                    <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-mark"></span> DETECTION &amp; RESPONSE</div><h1>Security alerts</h1><p class="page-description">Investigate suspicious activity and track incident resolution.</p></div></div>
-                    <section class="kpi-grid" aria-label="Alert summary">
-                        <article class="kpi-card"><div class="kpi-top"><span class="kpi-label">Open alerts</span><span class="kpi-icon icon-orange">!</span></div><div class="kpi-value-row"><strong class="kpi-value">5</strong></div><div class="kpi-foot">Across all detection rules</div></article>
-                        <article class="kpi-card"><div class="kpi-top"><span class="kpi-label">High severity</span><span class="kpi-icon icon-orange">⌁</span></div><div class="kpi-value-row"><strong class="kpi-value">2</strong></div><div class="kpi-foot">Prioritize for investigation</div></article>
-                        <article class="kpi-card"><div class="kpi-top"><span class="kpi-label">Investigating</span><span class="kpi-icon icon-blue">◷</span></div><div class="kpi-value-row"><strong class="kpi-value">1</strong></div><div class="kpi-foot">Currently being reviewed</div></article>
-                        <article class="kpi-card"><div class="kpi-top"><span class="kpi-label">Resolved today</span><span class="kpi-icon icon-green">✓</span></div><div class="kpi-value-row"><strong class="kpi-value">8</strong></div><div class="kpi-foot">Since 12:00 AM</div></article>
-                    </section>
-                    <section class="panel table-panel">
-                        <div class="panel-heading"><div><div class="panel-title-row"><span class="section-mark section-mark-orange"></span><h2>Active security incidents</h2></div><p>Review alerts, then mark resolved when addressed.</p></div><label class="search-box"><span aria-hidden="true">⌕</span><input type="search" placeholder="Search alerts" aria-label="Search alerts" data-search-input="#alerts-table" data-empty-state="#alert-empty"></label></div>
-                        <div class="table-wrap"><table id="alerts-table"><thead><tr><th>Alert ID</th><th>Detection rule</th><th>Source IP</th><th>Source MAC</th><th>Severity</th><th>Status</th><th>First seen</th><th>Action</th></tr></thead><tbody>
-                            <tr data-searchable><td class="table-primary">ALT-501</td><td>Brute force · 5+ failed logins</td><td class="mono">192.168.1.105</td><td class="mono">00:1A:2B:3C:4D:5E</td><td><span class="badge badge-danger">High</span></td><td><span class="badge badge-warning" data-alert-status>Investigating</span></td><td>14:22:10</td><td><button type="button" class="table-action" data-resolve="ALT-501">Mark resolved</button></td></tr>
-                            <tr data-searchable><td class="table-primary">ALT-502</td><td>Multiple failed logins</td><td class="mono">45.33.21.90</td><td class="mono">00:25:96:FF:FE:12</td><td><span class="badge badge-warning">Medium</span></td><td><span class="badge" data-alert-status>New</span></td><td>13:05:44</td><td><button type="button" class="table-action" data-resolve="ALT-502">Mark resolved</button></td></tr>
-                            <tr data-searchable><td class="table-primary">ALT-503</td><td>Unusual sign-in location</td><td class="mono">103.28.54.10</td><td class="mono">3C:52:82:AB:CD:EF</td><td><span class="badge badge-blue">Low</span></td><td><span class="badge" data-alert-status>New</span></td><td>12:48:03</td><td><button type="button" class="table-action" data-resolve="ALT-503">Mark resolved</button></td></tr>
-                        </tbody></table><div id="alert-empty" class="empty-row">No alerts match your search.</div></div>
-                    </section>
-                    <div class="table-muted">Demo data · Alert actions update this page only.</div>
-                </section>
-                <section class="view-panel secondary-view" id="view-blocked-ips" data-view="blocked-ips" hidden>
-                    <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-mark"></span> NETWORK CONTROLS</div><h1>Blocked IP addresses</h1><p class="page-description">Manage sources currently prevented from accessing your environment.</p></div><button type="button" class="button button-primary" data-open-modal><span aria-hidden="true">＋</span> Block an IP</button></div>
-                    <section class="kpi-grid" aria-label="Blocked IP summary">
-                        <article class="kpi-card"><div class="kpi-top"><span class="kpi-label">Blocked addresses</span><span class="kpi-icon icon-green">⊘</span></div><div class="kpi-value-row"><strong class="kpi-value" id="blocked-count">1</strong></div><div class="kpi-foot">Currently on the block list</div></article>
-                        <article class="kpi-card"><div class="kpi-top"><span class="kpi-label">Automated blocks</span><span class="kpi-icon icon-blue">⚙</span></div><div class="kpi-value-row"><strong class="kpi-value">1</strong></div><div class="kpi-foot">Triggered by security rules</div></article>
-                        <article class="kpi-card"><div class="kpi-top"><span class="kpi-label">Manual blocks</span><span class="kpi-icon icon-orange">＋</span></div><div class="kpi-value-row"><strong class="kpi-value" id="manual-count">0</strong></div><div class="kpi-foot">Added by administrators</div></article>
-                        <article class="kpi-card"><div class="kpi-top"><span class="kpi-label">Protected services</span><span class="kpi-icon icon-green">✓</span></div><div class="kpi-value-row"><strong class="kpi-value">4</strong></div><div class="kpi-foot">Applying block list rules</div></article>
-                    </section>
-                    <section class="panel table-panel">
-                        <div class="panel-heading"><div><div class="panel-title-row"><span class="section-mark"></span><h2>Active block list</h2></div><p>Manually added entries are for this demo session only.</p></div><label class="search-box"><span aria-hidden="true">⌕</span><input type="search" placeholder="Search IP or reason" aria-label="Search blocked IPs" data-search-input="#blocked-ip-table" data-empty-state="#blocked-empty"></label></div>
-                        <div class="table-wrap"><table id="blocked-ip-table"><thead><tr><th>IP address</th><th>Reason</th><th>Blocked at</th><th>Added by</th><th>Type</th><th>Action</th></tr></thead><tbody>
-                            <tr data-searchable><td class="table-primary mono">192.168.1.105</td><td>Automated brute force trigger</td><td>Oct 19, 2026 · 14:23</td><td>Auto-engine</td><td><span class="badge badge-blue">Automatic</span></td><td><button type="button" class="table-action" data-unblock="192.168.1.105">Unblock</button></td></tr>
-                        </tbody></table><div id="blocked-empty" class="empty-row">No blocked addresses match your search.</div></div>
-                    </section>
-                </section>
-                <section class="view-panel secondary-view" id="view-operator-profile" data-view="operator-profile" hidden>
-                    <div class="page-heading"><div><div class="eyebrow"><span class="eyebrow-mark"></span> IDENTITY &amp; ACCESS</div><h1>Operator profile</h1><p class="page-description">Review the identity and access details associated with this demo session.</p></div></div>
-                    <article class="panel profile-panel">
-                        <div class="panel-heading"><div><div class="panel-title-row"><span class="section-mark"></span><h2>Analyst identity records</h2></div><p>Credential visibility controls only affect this local display.</p></div><span class="live-label"><span class="live-dot"></span>CLIENT SESSION</span></div>
-                        <dl class="operator-records">
-                            <div class="operator-record"><dt>Username</dt><dd data-profile-username>Admin</dd></div>
-                            <div class="operator-record"><dt>Clearance level</dt><dd>Security administrator</dd></div>
-                            <div class="operator-record"><dt>Secure secret key token</dt><dd class="operator-value-with-action"><span class="masked-value" data-profile-secret="provisioning" data-revealed="false">••••••••</span><button type="button" class="reveal-toggle" data-secret-toggle="provisioning" aria-label="Reveal secure secret key token" aria-pressed="false">Reveal</button></dd></div>
-                            <div class="operator-record"><dt>Last active login (UTC)</dt><dd data-profile-last-login>Not recorded in this session</dd></div>
-                            <div class="operator-record"><dt>Requesting remote IP</dt><dd>192.0.2.42 <span class="record-note">illustrative</span></dd></div>
-                            <div class="operator-record"><dt>Password</dt><dd class="operator-value-with-action"><span class="masked-value" data-profile-secret="password" data-revealed="false">••••••••</span><button type="button" class="reveal-toggle" data-secret-toggle="password" aria-label="Reveal demo password placeholder" aria-pressed="false">Reveal</button></dd></div>
-                            <div class="operator-record"><dt>API key / token</dt><dd class="operator-value-with-action"><span class="masked-value" data-profile-secret="api-token" data-revealed="false">••••••••</span><button type="button" class="reveal-toggle" data-secret-toggle="api-token" aria-label="Reveal demo API token placeholder" aria-pressed="false">Reveal</button></dd></div>
-                        </dl>
-                        <p class="profile-disclaimer">Demo-only placeholders are not valid credentials. This front-end cannot securely store, validate, or protect production secrets.</p>
-                    </article>
-                </section>
+                <div id="main-content-container"></div>
             </div>
         </main>
     </div>
-    <div id="block-ip-modal" class="modal-backdrop" aria-hidden="true">
-        <section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="block-modal-title">
-            <div class="modal-heading"><div><h2 id="block-modal-title">Block an IP address</h2><p>Add a source address to the demo block list.</p></div><button type="button" class="icon-button" data-close-modal aria-label="Close dialog">×</button></div>
-            <form id="block-ip-form">
-                <div class="field"><label for="ip-address">IP address</label><input id="ip-address" name="ip" type="text" inputmode="decimal" placeholder="e.g. 203.0.113.42" autocomplete="off" required></div>
-                <div class="field"><label for="block-reason">Reason</label><textarea id="block-reason" name="reason" placeholder="Why should this address be blocked?" required></textarea></div>
-                <div class="modal-actions"><button type="button" class="button button-secondary" data-close-modal>Cancel</button><button type="submit" class="button button-primary">Add to block list</button></div>
-            </form>
-        </section>
-    </div>
-    <div class="toast" id="toast" role="status" aria-live="polite"></div>
-    <script src="app.js"></script>
+
+    <!-- Modals & Drawers Containers -->
+    <div id="toast-container" class="toast-container" aria-live="polite"></div>
+
+    <!-- Scripts: Loaded in Strict Modular Dependency Order -->
+    <script src="js/config.js"></script>
+    <script src="js/data/mock-events.js"></script>
+    <script src="js/data/mock-alerts.js"></script>
+    <script src="js/data/mock-incidents.js"></script>
+    <script src="js/data/mock-users.js"></script>
+    <script src="js/data/mock-assets.js"></script>
+    <script src="js/data/mock-rules.js"></script>
+    <script src="js/data/mock-hunt-templates.js"></script>
+    <script src="js/data/mock-threat-intel.js"></script>
+    <script src="js/data/mock-mitre.js"></script>
+    <script src="js/data/mock-data-sources.js"></script>
+    <script src="js/data/mock-audit.js"></script>
+
+    <script src="js/api/endpoints.js"></script>
+    <script src="js/api/mock-adapter.js"></script>
+    <script src="js/api/api-client.js"></script>
+
+    <script src="js/state.js"></script>
+    <script src="js/router.js"></script>
+
+    <script src="js/utils/icons.js"></script>
+    <script src="js/utils/formatters.js"></script>
+    <script src="js/utils/query-parser.js"></script>
+
+    <script src="js/components/toast.js"></script>
+    <script src="js/components/modal.js"></script>
+    <script src="js/components/drawer.js"></script>
+    <script src="js/components/command-palette.js"></script>
+    <script src="js/components/charts.js"></script>
+    <script src="js/components/entity-graph.js"></script>
+
+    <script src="js/pages/overview.js"></script>
+    <script src="js/pages/alerts.js"></script>
+    <script src="js/pages/incidents.js"></script>
+    <script src="js/pages/log-explorer.js"></script>
+    <script src="js/pages/threat-hunting.js"></script>
+    <script src="js/pages/detection-rules.js"></script>
+    <script src="js/pages/users.js"></script>
+    <script src="js/pages/assets.js"></script>
+    <script src="js/pages/threat-intel.js"></script>
+    <script src="js/pages/mitre-attack.js"></script>
+    <script src="js/pages/reports.js"></script>
+    <script src="js/pages/data-sources.js"></script>
+    <script src="js/pages/audit-logs.js"></script>
+    <script src="js/pages/settings.js"></script>
+
+    <script src="js/app.js"></script>
 </body>
 </html>
